@@ -1,0 +1,22 @@
+{
+  "name": "pull-hyperscript",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmckegg/pull-hyperscript.git"
+  },
+  "author": "Matt McKegg",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mmckegg/pull-hyperscript/issues"
+  },
+  "homepage": "https://github.com/mmckegg/pull-hyperscript#readme"
+}
