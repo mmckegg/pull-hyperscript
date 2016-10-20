@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/mmckegg/pull-hyperscript/issues"
   },
-  "homepage": "https://github.com/mmckegg/pull-hyperscript#readme"
+  "homepage": "https://github.com/mmckegg/pull-hyperscript#readme",
+  "dependencies": {
+    "pull-cat": "^1.1.11"
+  }
 }
