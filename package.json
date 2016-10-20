@@ -21,5 +21,6 @@
   "homepage": "https://github.com/mmckegg/pull-hyperscript#readme",
   "dependencies": {
     "pull-cat": "^1.1.11"
+    "pull-stream": "^3.4.5"
   }
 }
