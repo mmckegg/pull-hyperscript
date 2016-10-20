@@ -1,52 +1,41 @@
 var pullCat = require('pull-cat')
 var pull = require('pull-stream')
+var isArray = Array.isArray
+
+var createAttributes = require('./lib/createAttributes')
 
 module.exports = h
 
 function h (tagName, props, children) {
-  if (children == null && typeof props === 'function') {
+  if (isSkippingProps()) {
     children = props
-    props = null
+    props = {}
   }
 
   var things = []
-  things.push(pull.once(`<${tagName}${createAttributes(props || {})}>`))
-  if (children) {
-    things.push(children)
-  }
+  things.push(pull.once(`<${tagName}${createAttributes(props)}>`))
+  if (children)
+    things.push(childrenToStream(children))
   things.push(pull.once(`</${tagName}>`))
   return pullCat(things)
+
+  function isSkippingProps() {
+    return children == undefined &&
+      (typeof props === 'function' || isArray(props) || typeof props === 'string')
+  }
 }
 
-function createAttributes (attributes) {
-  var buf = ''
+function childrenToStream (children) {
+  if (isStream(children)) return children
 
-  Object.keys(attributes).forEach(function (attribute) {
-    var value = attributes[attribute]
-    if (!truthyEnough(value)) return
-
-    value = Array.isArray(value) ? validValues(value)
-      : Object(value) === value ? validKeys(value)
-      : value
-    if (!truthyEnough(value)) return
-
-    buf += ' ' + attribute
-    if (value !== true) buf += '="' + value + '"'
-  })
-
-  return buf
+  if (isArray(children))
+    return pullCat(children.map(childrenToStream))
+ 
+  return pull.values([children])
 }
 
-function truthyEnough (value) {
-  return value || value === 0 || value === ''
+function isStream (fn) {
+  return typeof fn  === 'function'
 }
 
-function validValues (array) {
-  return array.filter(Boolean).join(' ')
-}
 
-function validKeys (object) {
-  return Object.keys(object).filter(function (key) {
-    return object[key]
-  }).join(' ')
-}
