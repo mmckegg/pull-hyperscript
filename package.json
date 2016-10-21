@@ -1,6 +1,6 @@
 {
   "name": "pull-hyperscript",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "hyperscript as a pull-stream source",
   "keywords": [
     "hyperscript",
