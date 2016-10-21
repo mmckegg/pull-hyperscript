@@ -1,5 +1,6 @@
 var test = require('tape')
 var pull = require('pull-stream')
+var catMap = require('pull-cat-map')
 
 var h = require('./')
 
@@ -85,7 +86,7 @@ test('a nested map', t => {
     h('div', {class: 'i'}, pull(
       pull.values(['yes', null, 'non']),
       pull.filter(Boolean),
-      pull.map(val => h('p', val))
+      catMap(val => h('p', val))
     )),
     pull.concat((err, html) => {
       if (err) throw err
@@ -95,4 +96,3 @@ test('a nested map', t => {
     })
   )
 })
-
