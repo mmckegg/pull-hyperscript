@@ -36,15 +36,16 @@ test('optional second arg', t => {
   )
 })
 
-// test('tag only', t => {
-  // pull(
-    // h('hr'),
-    // pull.concat((err, html) => {
-      // t.equal(html, '<hr></hr>', 'renders html')
-      // t.end()
-    // })
-  // )
-// })
+test('tag only', t => {
+  pull(
+     h('hr'),
+     pull.concat((err, html) => {
+       if (err) throw err
+       t.equal(html, '<hr></hr>', 'renders html')
+       t.end()
+     })
+   )
+})
 
 test('multiple level', t => {
   pull(
