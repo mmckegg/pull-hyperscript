@@ -1,41 +1,58 @@
-var pullCat = require('pull-cat')
+var cat = require('pull-cat')
+var defined = require('defined')
 var pull = require('pull-stream')
+var once = pull.once
 var isArray = Array.isArray
 
 var createAttributes = require('./lib/createAttributes')
 
 module.exports = h
 
-function h (tagName, props, children) {
-  if (isSkippingProps()) {
-    children = props
-    props = {}
+function h () {
+  var tagName, props, children
+  if (arguments.length === 3)
+    var [ tagName, props, children ] = arguments
+
+  if (arguments.length === 2) {
+    if (isChild(arguments[1]))
+      var [ tagName, children, props] = arguments
+    else
+      var [ tagName, props, children] = arguments
   }
+
+  if (arguments.length === 1)
+    [ tagName ] = arguments
+
+  props = defined(props, {})
+  // children = defined(children, [])
 
   var things = []
-  things.push(pull.once(`<${tagName}${createAttributes(props)}>`))
-  if (children)
-    things.push(childrenToStream(children))
-  things.push(pull.once(`</${tagName}>`))
-  return pullCat(things)
 
-  function isSkippingProps() {
-    return children == undefined &&
-      (typeof props === 'function' || isArray(props) || typeof props === 'string')
-  }
+  return cat([
+    once(`<${tagName}${createAttributes(props)}>`),
+    childrenToStream(children),
+    once(`</${tagName}>`)
+  ])
 }
 
 function childrenToStream (children) {
-  if (isStream(children)) return children
+  if (isStream(children))
+    return children
 
   if (isArray(children))
-    return pullCat(children.map(childrenToStream))
- 
-  return pull.values([children])
+    return cat(children.map(childrenToStream))
+
+  return once(children)
+}
+
+function isChild (thing) {
+  return [isStream(thing), isArray(thing), isString].some(Boolean)
 }
 
 function isStream (fn) {
-  return typeof fn  === 'function'
+  return typeof fn === 'function'
 }
 
-
+function isString (str) {
+  return typeof str === 'string'
+}

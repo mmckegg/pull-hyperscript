@@ -3,25 +3,21 @@ var pull = require('pull-stream')
 
 var h = require('./')
 
-test('single level', t => {
+test('string child', t => {
   pull(
-    h('div', {class: 'test'}),
+    h('div', {class: 'i'}, 'content'),
     pull.concat((err, html) => {
-      t.equal(html, '<div class="test"></div>', 'renders html')
+      t.equal(html, '<div class="i">content</div>', 'renders html')
       t.end()
     })
   )
 })
 
-test('multiple level', t => {
+test('stream child', t => {
   pull(
-    h('div', {class: 'test'}, [
-      h('div', {}, [
-        h('p', {}, 'yes!')
-      ])
-    ]),
+    h('div', {class: 'i'}, h('p', {}, 'content')),
     pull.concat((err, html) => {
-      t.equal(html, '<div class="test"><div><p>yes!</p></div></div>', 'renders html')
+      t.equal(html, '<div class="i"><p>content</p></div>', 'renders html')
       t.end()
     })
   )
@@ -37,20 +33,59 @@ test('optional second arg', t => {
   )
 })
 
+// test('tag only', t => {
+  // pull(
+    // h('hr'),
+    // pull.concat((err, html) => {
+      // t.equal(html, '<hr></hr>', 'renders html')
+      // t.end()
+    // })
+  // )
+// })
+
+test('multiple level', t => {
+  pull(
+    h('div', {class: 'i'}, [
+      h('div', {}, [
+        h('p', {}, 'yes!')
+      ])
+    ]),
+    pull.concat((err, html) => {
+      t.equal(html, '<div class="i"><div><p>yes!</p></div></div>', 'renders html')
+      t.end()
+    })
+  )
+})
+
 test('nested array', t => {
   pull(
     h('div', [
-      h('div', 'yes'), 
+      h('div', 'yes'),
       [
         h('p', {class: '1'}, 'no'),
         h('p', {class: '2'}, 'no')
       ]
     ]),
     pull.concat((err, html) => {
-      var expected =  '<div><div>yes</div><p class="1">no</p><p class="2">no</p></div>'
+      var expected = '<div><div>yes</div><p class="1">no</p><p class="2">no</p></div>'
       t.equal(html, expected, 'renders html')
       t.end()
     })
   )
 })
 
+test('a nested map', t => {
+  pull(
+    h('table', {class: 'i'},
+      h('tr', {}, pull(
+        pull.values(['yes', null, 'non']),
+        pull.filter(Boolean),
+        pull.map(val => h('td', val))
+      ))
+    ),
+    pull.concat((err, html) => {
+      // console.log(html)
+      t.end()
+    })
+  )
+})
