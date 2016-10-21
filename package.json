@@ -1,6 +1,6 @@
 {
   "name": "pull-hyperscript",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,14 +10,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mmckegg/pull-hyperscript.git"
+    "url": "https://git-ssb.celehner.com/%259ROPN84dULteLhoerd2Ge%2FdCR3ajN3naOU%2BApJ2BxUU%3D.sha256"
   },
   "author": "Matt McKegg",
+  "contributors": [
+    "mixmix"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mmckegg/pull-hyperscript/issues"
+    "url": "patchwork"
   },
-  "homepage": "https://github.com/mmckegg/pull-hyperscript#readme",
+  "homepage": "https://git-ssb.celehner.com/%259ROPN84dULteLhoerd2Ge%2FdCR3ajN3naOU%2BApJ2BxUU%3D.sha256",
   "dependencies": {
     "defined": "^1.0.0",
     "pull-cat": "^1.1.11",
