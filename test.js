@@ -54,6 +54,7 @@ test('multiple level', t => {
       ])
     ]),
     pull.concat((err, html) => {
+      if (err) throw err
       t.equal(html, '<div class="i"><div><p>yes!</p></div></div>', 'renders html')
       t.end()
     })
@@ -88,6 +89,7 @@ test('a nested map', t => {
       ))
     ),
     pull.concat((err, html) => {
+      if (err) throw err
       // console.log(html)
       t.end()
     })
