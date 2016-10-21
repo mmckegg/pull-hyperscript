@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js | tap-diff"
+    "test": "standard && node test.js | tap-diff"
   },
   "repository": {
     "type": "git",
@@ -17,10 +17,12 @@
   },
   "homepage": "https://github.com/mmckegg/pull-hyperscript#readme",
   "dependencies": {
+    "escape-html": "^1.0.3",
     "pull-cat": "^1.1.11",
     "pull-stream": "^3.4.5"
   },
   "devDependencies": {
+    "standard": "^8.4.0",
     "tap-diff": "^0.1.1",
     "tape": "^4.6.2"
   }

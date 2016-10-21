@@ -2,7 +2,7 @@ var pullCat = require('pull-cat')
 var pull = require('pull-stream')
 var isArray = Array.isArray
 
-var createAttributes = require('./lib/createAttributes')
+var createAttributes = require('./lib/create-attributes')
 
 module.exports = h
 
@@ -14,13 +14,14 @@ function h (tagName, props, children) {
 
   var things = []
   things.push(pull.once(`<${tagName}${createAttributes(props)}>`))
-  if (children)
+  if (children) {
     things.push(childrenToStream(children))
+  }
   things.push(pull.once(`</${tagName}>`))
   return pullCat(things)
 
-  function isSkippingProps() {
-    return children == undefined &&
+  function isSkippingProps () {
+    return children == null &&
       (typeof props === 'function' || isArray(props) || typeof props === 'string')
   }
 }
@@ -28,14 +29,13 @@ function h (tagName, props, children) {
 function childrenToStream (children) {
   if (isStream(children)) return children
 
-  if (isArray(children))
+  if (isArray(children)) {
     return pullCat(children.map(childrenToStream))
- 
+  }
+
   return pull.values([children])
 }
 
 function isStream (fn) {
-  return typeof fn  === 'function'
+  return typeof fn === 'function'
 }
-
-
