@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/mmckegg/pull-hyperscript#readme",
   "dependencies": {
-    "escape-html": "^1.0.3",
     "pull-cat": "^1.1.11",
     "pull-stream": "^3.4.5"
   },
