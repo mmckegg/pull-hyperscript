@@ -82,16 +82,15 @@ test('nested array', t => {
 
 test('a nested map', t => {
   pull(
-    h('table', {class: 'i'},
-      h('tr', {}, pull(
-        pull.values(['yes', null, 'non']),
-        pull.filter(Boolean),
-        pull.map(val => h('td', val))
-      ))
-    ),
+    h('div', {class: 'i'}, pull(
+      pull.values(['yes', null, 'non']),
+      pull.filter(Boolean),
+      pull.map(val => h('p', val))
+    )),
     pull.concat((err, html) => {
       if (err) throw err
-      // console.log(html)
+      var expected = '<div class="i"><p>yes</p><p>non</p></div>'
+      t.equal(html, expected, 'renders html')
       t.end()
     })
   )
