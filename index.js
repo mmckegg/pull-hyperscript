@@ -4,7 +4,7 @@ var pull = require('pull-stream')
 var once = pull.once
 var isArray = Array.isArray
 
-var createAttributes = require('./lib/createAttributes')
+var createAttributes = require('./lib/create-attributes')
 
 module.exports = h
 
@@ -25,8 +25,6 @@ function h () {
 
   props = defined(props, {})
   // children = defined(children, [])
-
-  var things = []
 
   return cat([
     once(`<${tagName}${createAttributes(props)}>`),
@@ -56,3 +54,4 @@ function isStream (fn) {
 function isString (str) {
   return typeof str === 'string'
 }
+

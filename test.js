@@ -7,6 +7,7 @@ test('string child', t => {
   pull(
     h('div', {class: 'i'}, 'content'),
     pull.concat((err, html) => {
+      if (err) throw err
       t.equal(html, '<div class="i">content</div>', 'renders html')
       t.end()
     })
@@ -17,6 +18,7 @@ test('stream child', t => {
   pull(
     h('div', {class: 'i'}, h('p', {}, 'content')),
     pull.concat((err, html) => {
+      if (err) throw err
       t.equal(html, '<div class="i"><p>content</p></div>', 'renders html')
       t.end()
     })
@@ -27,6 +29,7 @@ test('optional second arg', t => {
   pull(
     h('p', 'yes!'),
     pull.concat((err, html) => {
+      if (err) throw err
       t.equal(html, '<p>yes!</p>', 'renders html')
       t.end()
     })
@@ -67,6 +70,7 @@ test('nested array', t => {
       ]
     ]),
     pull.concat((err, html) => {
+      if (err) throw err
       var expected = '<div><div>yes</div><p class="1">no</p><p class="2">no</p></div>'
       t.equal(html, expected, 'renders html')
       t.end()
@@ -89,3 +93,4 @@ test('a nested map', t => {
     })
   )
 })
+
