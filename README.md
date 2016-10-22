@@ -36,3 +36,9 @@ pull(
   })
 )
 ```
+
+## TODO
+
+- Should support some kind of automatic text escaping.
+- `props` should generate the the same html as hyperscript. Should probably rip some code out of [html-element](https://github.com/1N50MN14/html-element).
+- ES5 compat? Discuss if this module should work in older (non-serverside) JS runtimes. How should we go about supporting this?
