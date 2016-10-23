@@ -1,7 +1,7 @@
 {
   "name": "pull-hyperscript",
   "description": "hyperscript as a pull-stream source. Allows streaming the view to the browser as it continues to render.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "keywords": [
     "hyperscript",
     "pull-stream",
