@@ -7,7 +7,6 @@ This allows streaming the view to the browser as it continues to render.
 ```js
 const h = require('pull-hyperscript')
 const pull = require('pull-stream')
-const catMap = require('pull-cat-map')
 
 pull(
   h('div', {class: 'i'}, [
@@ -26,7 +25,8 @@ pull(
   h('div', {class: 'i'}, pull(
     pull.values(['yes', null, 'non']),
     pull.filter(Boolean),
-    catMap(val => h('p', val))
+    map(val => h('p', val)),
+    flatten()                        // NB: flatten turns a stream of streams into a single stream
   )),
   pull.concat((err, html) => {
     if (err) throw err

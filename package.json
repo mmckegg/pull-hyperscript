@@ -1,6 +1,6 @@
 {
   "name": "pull-hyperscript",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "hyperscript as a pull-stream source",
   "keywords": [
     "hyperscript",
@@ -34,7 +34,6 @@
   "devDependencies": {
     "standard": "^8.4.0",
     "tap-diff": "^0.1.1",
-    "tape": "^4.6.2",
-    "pull-cat-map": "^1.0.0"
+    "tape": "^4.6.2"
   }
 }
