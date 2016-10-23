@@ -8,16 +8,11 @@ var createAttributes = require('./lib/create-attributes')
 
 module.exports = h
 
-function h () {
-  var tagName, props, children
-  if (arguments.length === 3) [ tagName, props, children ] = arguments
-
-  if (arguments.length === 2) {
-    if (isChild(arguments[1])) [ tagName, children ] = arguments
-    else [ tagName, props, children ] = arguments
+function h (tagName, props, children) {
+  if (arguments.length === 2 && isChild(props)) {
+    children = props
+    props = undefined
   }
-
-  if (arguments.length === 1) [ tagName ] = arguments
 
   props = defined(props, {})
   // children = defined(children, [])
