@@ -86,7 +86,6 @@ test('a nested map', t => {
       pull.values(['yes', null, 'non']),
       pull.filter(Boolean),
       pull.map(val => h('p', val)),
-      pull.flatten()
     )),
     pull.concat((err, html) => {
       if (err) throw err

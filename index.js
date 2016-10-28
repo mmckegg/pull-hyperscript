@@ -19,13 +19,20 @@ function h (tagName, props, children) {
 
   return cat([
     once(`<${tagName}${createAttributes(props)}>`),
-    childrenToStream(children),
+    flatten(childrenToStream(children)),
     once(`</${tagName}>`)
   ])
 }
 
+function flatten (input) {
+  return pull(
+    input,
+    pull.flatten()
+  )
+}
+
 function childrenToStream (children) {
-  if (isStream(children)) return children
+  if (isStream(children)) return pull.flatten()(children)
   if (isArray(children)) return cat(children.map(childrenToStream))
   return once(children)
 }
@@ -41,4 +48,3 @@ function isStream (fn) {
 function isString (str) {
   return typeof str === 'string'
 }
-
